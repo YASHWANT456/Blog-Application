@@ -1,0 +1,19 @@
+package com.rishu.blog.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+
+import Security.CustomUserDetailService;
+
+@Configuration
+public class SecurityConfig {
+	
+	@Autowired
+    private CustomUserDetailService userDetailService;
+	
+	
+
+	
+
+	
+}

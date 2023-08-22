@@ -1,0 +1,71 @@
+package com.rishu.quiz_application.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.rishu.quiz_application.Entity.Questions;
+import com.rishu.quiz_application.repo.QuestionsRepo;
+
+@Service
+public class QuestionService {
+	
+	@Autowired
+	QuestionsRepo questionsRepo;
+
+	public ResponseEntity<List<Questions>> getAllQuestions() {
+		// TODO Auto-generated method stub
+		try 
+		{
+			 return new ResponseEntity<>(questionsRepo.findAll(),HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		// if error it will return empty array list with bad request response
+		return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+		
+	}
+	public ResponseEntity<List<Questions>>getQuestionsByCategory(String category)
+	{
+		try
+		{
+			return new ResponseEntity<>(questionsRepo.findByCategory(category),HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+	}
+	public ResponseEntity<String> addQuestions(Questions questions) {
+		try 
+		{
+			questionsRepo.save(questions);
+			new ResponseEntity<>("Question Added",HttpStatus.CREATED);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Error" , HttpStatus.BAD_REQUEST);
+		
+		
+		
+	}
+	public ResponseEntity<String> deleteQuestions(Integer id) {
+		// TODO Auto-generated method stub
+		
+		questionsRepo.deleteById(id);
+		return new ResponseEntity<>("Question Deleted",HttpStatus.OK);
+		
+	}
+
+}

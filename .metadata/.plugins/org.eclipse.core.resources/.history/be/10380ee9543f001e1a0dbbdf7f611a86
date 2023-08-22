@@ -1,0 +1,5 @@
+package com.rishu.quiz_application.Entity;
+
+public class Quiz {
+
+}

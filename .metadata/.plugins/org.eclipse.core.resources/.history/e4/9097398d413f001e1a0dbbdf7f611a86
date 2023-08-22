@@ -1,0 +1,15 @@
+package com.rishu.quiz_application.repo;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.rishu.quiz_application.Entity.Questions;
+
+
+
+
+public interface QuestionsRepo extends JpaRepository<Questions , Integer>{
+       
+	List<Questions> findByCategory(String category);
+}

@@ -1,0 +1,30 @@
+package com.rishu.blog.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
+import Security.CustomUserDetailService;
+
+@Configuration
+public class SecurityConfig {
+	
+	@Autowired
+    private CustomUserDetailService userDetailService;
+	
+	
+	private DaoAuthenticationProvider authenticationProvider()
+	{
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setUserDetailsService(userDetailService);
+		//daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+		return daoAuthenticationProvider;
+	}
+	
+	
+	
+
+	
+
+	
+}
