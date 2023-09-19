@@ -1,0 +1,5 @@
+package com.rishu.blog.payloads;
+
+public class JwtRequest {
+
+}

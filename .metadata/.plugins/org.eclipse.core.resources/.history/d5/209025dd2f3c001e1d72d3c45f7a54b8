@@ -1,5 +1,0 @@
-package com.rishu.blog.services;
-
-public interface CommentService {
-
-}

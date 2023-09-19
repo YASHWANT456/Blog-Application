@@ -1,5 +1,0 @@
-package com.rishu.blog.config;
-
-public class SecurityConfig {
-
-}

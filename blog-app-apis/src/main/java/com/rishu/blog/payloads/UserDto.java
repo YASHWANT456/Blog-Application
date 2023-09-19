@@ -1,5 +1,10 @@
 package com.rishu.blog.payloads;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.rishu.blog.entity.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -25,5 +30,8 @@ public class UserDto {
 	
 	@NotNull(message = "about should not be null")
 	private String about; 
+	
+	private Set<RoleDto> roles = new HashSet<>();
+
 
 }

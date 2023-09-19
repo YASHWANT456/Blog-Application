@@ -1,0 +1,5 @@
+package com.rishu.blog.repositories;
+
+public interface RoleRepo {
+
+}

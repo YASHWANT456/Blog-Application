@@ -1,15 +1,19 @@
 package com.rishu.blog.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rishu.blog.entity.Role;
 import com.rishu.blog.entity.User;
 import com.rishu.blog.exceptions.ResourceNotFoundException;
 import com.rishu.blog.payloads.UserDto;
+import com.rishu.blog.repositories.RoleRepo;
 import com.rishu.blog.repositories.UserRepo;
 import com.rishu.blog.services.UserService;
 
@@ -21,11 +25,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
 		// TODO Auto-generated method stub
+		userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		User user = this.dtoTOUser(userDto);
+		
 		User savedUser = this.userRepo.save(user);
 		return this.userToDto(savedUser);
 	}
@@ -90,6 +102,21 @@ public class UserServiceImpl implements UserService {
 //		userDto.setPassword(user.getPassword());
 //		userDto.setAbout(user.getAbout());
 		return userDto;
+	}
+
+	@Override
+	public UserDto registerNewUser(UserDto userDto) {
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		// TODO Auto-generated method stub
+		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		
+		//roles
+		Role role = this.roleRepo.findById(402).get();
+		
+		user.getRoles().add(role);
+		User newUser = this.userRepo.save(user);
+		return this.modelMapper.map(newUser, UserDto.class);
 	}
 
 }

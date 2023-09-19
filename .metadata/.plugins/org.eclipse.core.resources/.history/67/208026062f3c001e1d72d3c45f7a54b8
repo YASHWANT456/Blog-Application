@@ -1,5 +1,0 @@
-package com.rishu.blog.payloads;
-
-public class CommentDto {
-
-}
